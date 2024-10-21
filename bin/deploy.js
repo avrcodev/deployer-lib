@@ -52,7 +52,8 @@ async function startDeploy() {
   // Copy to server
   startSpinner(` Copying ${archiveName} to the remote route...`);
 
-  const copyCommand = `cp -Rf ${buildPath}/${archiveName} "${fullRemotePath}"`;
+  const copyCommand = `xcopy /s /y "${buildPath}\\${archiveName}" "${fullRemotePath}"`;
+
   try {
     await execCommand(copyCommand);
     succeedSpinner(" File copied successfully.");
@@ -61,11 +62,6 @@ async function startDeploy() {
     console.error(chalk.red(error.stderr));
     return;
   }
-
-  // Verify that the file exists before decompressing
-  const checkFileExistsCommand = `ls -l "${fullRemotePath}"`;
-  let aa = await execCommand(checkFileExistsCommand);
-  console.log("🚀 ~ startDeploy ~ aa:", aa);
 
   // Unzip on the server
   startSpinner(" Unzipping the file to the remote path...");
