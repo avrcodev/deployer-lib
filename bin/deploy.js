@@ -7,28 +7,35 @@ import { failSpinner, startSpinner, succeedSpinner } from "../utils/spinner.js";
 import { execCommand } from "../utils/execCommand.js";
 import askQuestions from "../questions/inquirerPrompts.js";
 import { extractTar } from "../helpers/extrac-tar-helper.js";
+import getArgs from "../helpers/yargs-helper.js";
 
 async function startDeploy() {
+  const { buildcommand, deploy } = getArgs();
+
   const answers = await askQuestions();
   const { packageManager, remotePath, buildPath, uploadImages } = answers;
 
   const archiveName = ARCHIVE_NAME;
   const fullRemotePath = `${remotePath}`;
 
-  // Command to compile the project
-  const buildCommand =
-    packageManager === "npm" ? "npm run build" : "yarn build";
+  //No generate compiled flag
+  if (!deploy) {
+    // Command to compile the project
+    const command = buildcommand || "build";
+    const bCommand =
+      packageManager === "npm" ? `npm run ${command}` : `yarn ${command}`;
 
-  // Compilation process
-  startSpinner(`Starting the compilation with ${packageManager}...`);
+    // Compilation process
+    startSpinner(`Starting the compilation with ${packageManager}...`);
 
-  try {
-    await execCommand(buildCommand);
-    succeedSpinner(" Successful compilation.");
-  } catch (error) {
-    failSpinner(" Error during compilation:");
-    console.error(chalk.red(error.stderr));
-    return;
+    try {
+      await execCommand(bCommand);
+      succeedSpinner(" Successful compilation.");
+    } catch (error) {
+      failSpinner(" Error during compilation:");
+      console.error(chalk.red(error.stderr));
+      return;
+    }
   }
 
   // Excluir imágenes si el usuario no quiere subirlas
@@ -40,6 +47,7 @@ async function startDeploy() {
   startSpinner(" Compressing the build directory...");
 
   const compressCommand = `cd ${buildPath} && tar -czvf ${archiveName} ${excludeImagesOption} *`;
+
   try {
     await execCommand(compressCommand);
     succeedSpinner(" Build successfully compressed.");
@@ -53,7 +61,7 @@ async function startDeploy() {
   startSpinner(` Copying ${archiveName} to the remote route...`);
 
   const copyCommand = `xcopy /s /y "${buildPath}\\${archiveName}" "${fullRemotePath}"`;
-
+  console.log(copyCommand);
   try {
     await execCommand(copyCommand);
     succeedSpinner(" File copied successfully.");

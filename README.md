@@ -1,6 +1,6 @@
 # Deployer Lib
 
-![Deployer Lib](https://img.shields.io/badge/Deployer%20Lib-v6.1.7-blue.svg)
+![Deployer Lib](https://img.shields.io/badge/Deployer%20Lib-v7.1.7-blue.svg)
 
 Deployer Lib is a command line tool that allows you to easily compile and deploy your frontend projects to remote paths. The library uses `npm` or `yarn` to manage dependencies and provides options to include or exclude images during deployment.
 
@@ -37,6 +37,21 @@ You will then be prompted to enter the required information:
 - Enter the remote path where you want to deploy your build.
 - Specify the local path of the build (default is build/).
 - Decide if you want to upload images.
+
+## Installation
+Additional configuration parameters
+
+Upload **only the compiled** version without previous generation
+```bash
+--deploy
+```
+
+Run the project with the **custom build command** "build:dev"
+```bash
+--buildcommand "build:dev"
+```
+
+You can always use the **--help** or **-h** command to get help with the commands.
 
 ## Example of use
 

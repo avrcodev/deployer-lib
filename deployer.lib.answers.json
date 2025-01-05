@@ -1,6 +1,0 @@
-{
-  "packageManager": "npm",
-  "remotePath": "/test/build",
-  "buildPath": "build",
-  "uploadImages": true
-}
