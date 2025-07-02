@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angelovelandia/deployer-lib.git"
+    "url": "https://github.com/avrcodev/deployer-lib.git"
   },
   "dependencies": {
     "chalk": "5.3.0",
@@ -41,10 +41,10 @@
     "javascript",
     "devops"
   ],
-  "author": "Angelo Velandia <velandia_angelo@outlook.com>",
+  "author": "avrcodev",
   "license": "MIT",
-  "homepage": "https://github.com/angelovelandia/deployer-lib",
+  "homepage": "https://github.com/avrcodev/deployer-lib",
   "bugs": {
-    "url": "https://github.com/angelovelandia/deployer-lib/issues"
+    "url": "https://github.com/avrcodev/deployer-lib/issues"
   }
 }
