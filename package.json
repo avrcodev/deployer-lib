@@ -1,6 +1,6 @@
 {
   "name": "deployer-lib",
-  "version": "7.1.7",
+  "version": "7.1.8",
   "description": "CLI tool to efficiently build and deploy frontend projects with optional image exclusions",
   "main": "index.js",
   "type": "module",
